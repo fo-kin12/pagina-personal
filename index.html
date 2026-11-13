@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<!-- Portafolio personal de Michael López — Autor: fo-kin12 -->
+<html lang="es" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <meta name="theme-color" content="#060a12">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Michael López">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="description" content="Michael López — Desarrollador de Software y Programador en Medellín. JavaScript, Python y Ciberseguridad.">
+    <link data-ml rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23070b14'/%3E%3Ctext x='50%25' y='58%25' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-weight='bold' font-size='42' fill='%2322d3ee'%3EML%3C/text%3E%3C/svg%3E">
+    <link data-ml rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%23070b14'/%3E%3Ctext x='50%25' y='56%25' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-weight='bold' font-size='76' fill='%2322d3ee'%3EML%3C/text%3E%3C/svg%3E">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+    <title>Michael López | Desarrollador de Software &amp; Programador — Medellín</title>
+
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link data-ml rel="preconnect" href="https://fonts.googleapis.com">
+    <link data-ml rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link data-ml href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Font Awesome (versión JS: dibuja los íconos como SVG, funciona en cualquier lugar) -->
+    <script data-ml src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js" data-auto-replace-svg="nest" defer></script>
+
+
+    <link data-ml data-inline="tw-styles" rel="stylesheet" href="css/tailwind.css">
+    <link data-ml data-inline="ml-styles" rel="stylesheet" href="css/styles.css">
+</head>
+<body class="ios-safe-bottom bg-slate-50 text-slate-800 dark:bg-[#060a12] dark:text-slate-100 font-sans antialiased selection:bg-cyan-500 selection:text-slate-950 transition-colors duration-300 overflow-x-hidden">
+
+    <!-- Ambient Background Glows -->
+    <div data-ml class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div class="absolute -top-40 -left-40 w-96 h-96 bg-cyan-500/15 dark:bg-cyan-500/10 rounded-full blur-3xl animate-pulse-slow"></div>
+        <div class="absolute top-1/3 -right-40 w-96 h-96 bg-emerald-500/15 dark:bg-emerald-500/10 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 2s;"></div>
+        <div class="absolute -bottom-40 left-1/3 w-96 h-96 bg-sky-500/10 dark:bg-cyan-400/5 rounded-full blur-3xl"></div>
+        <div class="absolute inset-0 bg-tech-grid"></div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div data-ml id="toastContainer" class="fixed bottom-24 md:bottom-5 right-4 left-4 sm:left-auto z-[60] flex flex-col items-end gap-2 pointer-events-none"></div>
+
+    <!-- Banner de acciones rápidas (se quita solo en el archivo descargado) -->
+    <div data-ml id="ownerExportBanner" class="relative z-40 bg-gradient-to-r from-emerald-600 via-cyan-600 to-emerald-600 text-slate-950 px-4 pb-3 shadow-lg border-b border-white/20" style="padding-top: calc(0.75rem + env(safe-area-inset-top, 0px));">
+        <div class="max-w-7xl mx-auto flex flex-col gap-2.5 text-xs font-mono">
+            <div class="flex flex-col lg:flex-row items-center justify-between gap-3">
+                <div class="flex items-center gap-2 font-bold text-center sm:text-left">
+                    <span class="px-2.5 py-1 rounded-lg bg-slate-950 text-emerald-400 text-[11px] uppercase flex items-center gap-1.5 shrink-0 shadow">
+                        <i class="fa-brands fa-android text-sm"></i> Android / iPhone / PC
+                    </span>
+                    <span class="text-slate-950 font-extrabold">Guarda, comparte o instala la página en tu celular o PC:</span>
+                </div>
+                <div class="flex flex-wrap items-center justify-center gap-2 shrink-0">
+                    <button type="button" onclick="window.sharePortfolioNative()" class="px-3.5 py-2 rounded-xl bg-slate-950 text-cyan-300 hover:bg-slate-900 active:scale-95 font-extrabold text-xs flex items-center gap-1.5 shadow-md transition">
+                        <i class="fa-solid fa-share-nodes text-sm"></i>
+                        <span>1. Compartir</span>
+                    </button>
+                    <button type="button" onclick="window.downloadPortfolioHTML()" class="px-3.5 py-2 rounded-xl bg-white text-slate-950 hover:bg-slate-100 active:scale-95 font-extrabold text-xs flex items-center gap-1.5 shadow-md transition">
+                        <i class="fa-solid fa-file-arrow-down text-emerald-600"></i>
+                        <span>2. Descargar (.HTML)</span>
+                    </button>
+                    <button type="button" onclick="window.downloadVCardContact()" class="px-3.5 py-2 rounded-xl bg-slate-950/90 text-amber-300 hover:bg-slate-900 active:scale-95 font-extrabold text-xs flex items-center gap-1.5 shadow-md transition">
+                        <i class="fa-solid fa-address-card"></i>
+                        <span>3. Guardar contacto</span>
+                    </button>
+                    <button type="button" onclick="window.installAndroidApp()" class="px-3.5 py-2 rounded-xl bg-slate-950 text-lime-300 hover:bg-slate-900 active:scale-95 font-extrabold text-xs flex items-center gap-1.5 shadow-md transition">
+                        <i class="fa-brands fa-android text-sm"></i>
+                        <span>4. Instalar en Android</span>
+                    </button>
+                    <button type="button" onclick="window.openDownloadModal()" class="px-3 py-2 rounded-xl bg-slate-950/20 hover:bg-slate-950/30 active:scale-95 text-slate-950 font-extrabold text-xs flex items-center gap-1 transition">
+                        <i class="fa-solid fa-circle-question"></i>
+                        <span>Ayuda</span>
+                    </button>
+                </div>
+            </div>
+            <div id="actionStatusFeedback" class="hidden px-3.5 py-2 rounded-xl bg-slate-950 text-emerald-300 font-mono text-xs flex items-center justify-between gap-2 shadow-inner">
+                <span id="actionStatusText">✔ Listo.</span>
+                <button type="button" onclick="document.getElementById('actionStatusFeedback').classList.add('hidden')" class="text-slate-400 hover:text-white text-xs px-1" aria-label="Cerrar">✕</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top Navigation Bar -->
+    <header data-ml class="sticky top-0 z-40 w-full glass-card bg-white/80 dark:bg-[#070c18]/80 border-b border-slate-200/80 dark:border-slate-800/80 transition-colors duration-300 ios-safe-top">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <a href="#inicio" class="flex items-center gap-3 group focus:outline-none">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-emerald-500 p-[1.5px] shadow-md shadow-cyan-500/20 group-hover:scale-105 transition-transform">
+                    <div class="w-full h-full bg-white dark:bg-slate-950 rounded-[10px] flex items-center justify-center font-mono font-bold text-sm tracking-tighter">
+                        <span class="text-cyan-500">&lt;</span><span class="text-slate-900 dark:text-white">ML</span><span class="text-emerald-400">/&gt;</span>
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-bold text-sm sm:text-base tracking-tight text-slate-900 dark:text-white flex items-center gap-1.5">
+                        <span data-cfg="nombre">Michael López</span>
+                        <span class="relative inline-flex w-2 h-2" title="Disponible para proyectos">
+                            <span class="absolute inline-flex w-full h-full rounded-full bg-emerald-400 opacity-75 animate-ping"></span>
+                            <span class="relative inline-flex w-2 h-2 rounded-full bg-emerald-400"></span>
+                        </span>
+                    </span>
+                    <span class="font-mono text-[11px] text-slate-500 dark:text-slate-400">Medellín, CO</span>
+                </div>
+            </a>
+
+            <nav class="hidden md:flex items-center gap-1 lg:gap-2 font-medium text-sm">
+                <a href="#inicio" class="px-3 py-2 rounded-lg text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 transition-all">Inicio</a>
+                <a href="#sobre-mi" class="px-3 py-2 rounded-lg text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 transition-all">Sobre Mí &amp; ADN</a>
+                <a href="#habilidades" class="px-3 py-2 rounded-lg text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 transition-all">Skills</a>
+                <a href="#proyectos" class="px-3 py-2 rounded-lg text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 transition-all">Proyectos</a>
+                <a href="#repos" class="px-3 py-2 rounded-lg text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 transition-all flex items-center gap-1.5"><i class="fa-brands fa-github"></i> Repos</a>
+                <a href="#canvas-lab" class="px-3 py-2 rounded-lg text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/10 transition-all font-mono text-xs flex items-center gap-1.5">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Demo Sync
+                </a>
+                <a href="#contacto" class="px-3 py-2 rounded-lg text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 transition-all">Contacto</a>
+            </nav>
+
+            <div class="flex items-center gap-2 sm:gap-3">
+                <button onclick="openDownloadModal()" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl font-mono text-xs font-bold bg-gradient-to-r from-emerald-500 to-cyan-500 text-slate-950 hover:opacity-95 transition-all shadow-md shadow-emerald-500/20" title="Compartir o descargar">
+                    <i class="fa-solid fa-share-nodes"></i>
+                    <span>Compartir</span>
+                </button>
+                <button id="themeToggleBtn" aria-label="Cambiar tema claro u oscuro" class="p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-100/80 dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 hover:border-cyan-500/50 hover:text-cyan-500 transition-all">
+                    <span id="themeIconWrap"><i class="fa-solid fa-sun text-amber-400"></i></span>
+                </button>
+                <a href="#contacto" class="hidden lg:inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm border border-cyan-500/40 bg-cyan-500/10 text-cyan-600 dark:text-cyan-300 font-semibold hover:bg-cyan-500/20 transition-all">
+                    <i class="fa-regular fa-paper-plane"></i>
+                    <span>Conectar</span>
+                </a>
+                <button id="mobileMenuBtn" aria-label="Abrir menú" class="md:hidden p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-100/80 dark:bg-slate-900/80 text-slate-700 dark:text-slate-300">
+                    <span id="mobileMenuIconWrap"><i class="fa-solid fa-bars"></i></span>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobileMenu" class="hidden md:hidden border-t border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-[#070c18]/95 px-4 pt-3 pb-5 space-y-2">
+            <a href="#inicio" class="mobile-nav-link block px-3 py-2.5 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-cyan-500/10 hover:text-cyan-400">Inicio</a>
+            <a href="#sobre-mi" class="mobile-nav-link block px-3 py-2.5 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-cyan-500/10 hover:text-cyan-400">Sobre Mí &amp; ADN Personal</a>
+            <a href="#habilidades" class="mobile-nav-link block px-3 py-2.5 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-cyan-500/10 hover:text-cyan-400">Habilidades Técnicas</a>
+            <a href="#proyectos" class="mobile-nav-link block px-3 py-2.5 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-cyan-500/10 hover:text-cyan-400">Proyectos Destacados</a>
+            <a href="#repos" class="mobile-nav-link block px-3 py-2.5 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-cyan-500/10 hover:text-cyan-400"><i class="fa-brands fa-github mr-1"></i> Mis repositorios en GitHub</a>
+            <a href="#canvas-lab" class="mobile-nav-link block px-3 py-2.5 rounded-xl text-sm font-mono text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/10">⚡ Demo Multi-Window Sync</a>
+            <a href="#contacto" class="mobile-nav-link block px-3 py-2.5 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-cyan-500/10 hover:text-cyan-400">Contacto Directo</a>
+            <button onclick="openDownloadModal()" class="w-full px-3 py-2.5 rounded-xl text-sm font-mono font-bold bg-gradient-to-r from-emerald-500 to-cyan-500 text-slate-950 flex items-center justify-center gap-2 shadow-md">
+                <i class="fa-solid fa-share-nodes"></i> Compartir / Descargar
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main data-ml class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- 1. HERO -->
+        <section id="inicio" class="pt-8 pb-16 md:py-20 lg:py-24 scroll-mt-20">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+
+                <div class="lg:col-span-7 space-y-6 reveal">
+                    <div class="inline-flex flex-wrap items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 dark:bg-cyan-950/60 border border-cyan-500/30 text-cyan-700 dark:text-cyan-300 text-xs font-mono">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span>Medellín, Colombia</span>
+                        <span class="text-slate-400 dark:text-slate-600">|</span>
+                        <span class="text-amber-500 dark:text-amber-300 font-semibold"><i class="fa-brands fa-js mr-1"></i>JavaScript (ES6+ / Web APIs)</span>
+                        <span class="text-slate-400 dark:text-slate-600">•</span>
+                        <span class="text-cyan-600 dark:text-cyan-300 font-semibold">Python</span>
+                        <span class="text-slate-400 dark:text-slate-600">•</span>
+                        <span class="text-emerald-600 dark:text-emerald-400 font-semibold">Ciberseguridad</span>
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-2">
+                        <button onclick="scrollToSkillAndInspect('javascript')" class="px-3 py-1 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/40 text-amber-600 dark:text-amber-300 font-mono text-xs font-semibold transition flex items-center gap-1.5">
+                            <i class="fa-brands fa-js"></i> JS ES6+ / DOM / Canvas / BroadcastChannel
+                        </button>
+                        <button onclick="scrollToSkillAndInspect('python')" class="px-3 py-1 rounded-lg bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/40 text-sky-600 dark:text-sky-300 font-mono text-xs font-semibold transition flex items-center gap-1.5">
+                            <i class="fa-brands fa-python"></i> Python / Automatización
+                        </button>
+                        <button onclick="scrollToSkillAndInspect('ciberseguridad')" class="px-3 py-1 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-emerald-600 dark:text-emerald-300 font-mono text-xs font-semibold transition flex items-center gap-1.5">
+                            <i class="fa-solid fa-shield-halved"></i> Ciberseguridad / Hardening
+                        </button>
+                    </div>
+
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.05] text-slate-900 dark:text-white">
+                        Hola, soy <span class="bg-gradient-to-r from-cyan-500 via-sky-400 to-emerald-400 bg-clip-text text-transparent" data-cfg="nombre">Michael López</span>
+                        <span class="block mt-2 text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-600 dark:text-slate-300">Desarrollador de Software &amp; Programador</span>
+                    </h1>
+
+                    <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
+                        Construyo aplicaciones web rápidas, seguras y fáciles de usar. Me muevo entre el <span class="text-amber-500 dark:text-amber-300 font-semibold">front-end con JavaScript</span>, la <span class="text-sky-600 dark:text-sky-300 font-semibold">automatización con Python</span> y las <span class="text-emerald-600 dark:text-emerald-400 font-semibold">buenas prácticas de seguridad</span> desde la primera línea de código.
+                    </p>
+
+                    <div class="flex flex-wrap items-center gap-3">
+                        <a href="#proyectos" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-semibold text-sm bg-gradient-to-r from-cyan-500 to-emerald-500 text-slate-950 shadow-lg shadow-cyan-500/25 hover:opacity-95 active:scale-95 transition">
+                            <i class="fa-solid fa-code"></i> Ver proyectos
+                        </a>
+                        <a href="#contacto" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-semibold text-sm border border-slate-300 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 text-slate-800 dark:text-slate-200 hover:border-cyan-500/60 hover:text-cyan-600 dark:hover:text-cyan-300 active:scale-95 transition">
+                            <i class="fa-regular fa-paper-plane"></i> Hablemos
+                        </a>
+                        <button onclick="window.downloadVCardContact()" class="inline-flex items-center gap-2 px-4 py-3 rounded-xl font-mono text-xs font-semibold text-amber-600 dark:text-amber-300 hover:bg-amber-500/10 active:scale-95 transition">
+                            <i class="fa-solid fa-address-card"></i> Guardar contacto
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-3 max-w-lg pt-2">
+                        <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/50 p-3 text-center">
+                            <div class="text-2xl font-extrabold text-cyan-600 dark:text-cyan-300 font-mono" id="statProyectos" data-count="7">0</div>
+                            <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Repos públicos</div>
+                        </div>
+                        <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/50 p-3 text-center">
+                            <div class="text-2xl font-extrabold text-emerald-600 dark:text-emerald-300 font-mono" data-count="7">0</div>
+                            <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Tecnologías</div>
+                        </div>
+                        <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/50 p-3 text-center">
+                            <div class="text-2xl font-extrabold text-amber-500 dark:text-amber-300 font-mono" data-count="100" data-suffix="%">0</div>
+                            <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Compromiso</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Terminal -->
+                <div class="lg:col-span-5 reveal">
+                    <div class="animate-float rounded-2xl border border-cyan-500/30 bg-slate-950/90 neon-border-cyan overflow-hidden shadow-2xl">
+                        <div class="flex items-center justify-between px-4 py-2.5 border-b border-slate-800 bg-slate-900/80">
+                            <div class="flex items-center gap-1.5">
+                                <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
+                                <span class="w-3 h-3 rounded-full bg-amber-400/80"></span>
+                                <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
+                            </div>
+                            <span class="font-mono text-[11px] text-slate-400">michael@medellin: ~</span>
+                            <i class="fa-solid fa-terminal text-slate-500 text-xs"></i>
+                        </div>
+                        <div class="p-4 sm:p-5 font-mono text-[12.5px] sm:text-[13px] leading-relaxed min-h-[260px] text-slate-200">
+                            <div id="terminalOutput"></div>
+                            <span class="inline-block w-2 h-4 bg-cyan-400 align-middle cursor-blink"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. SOBRE MÍ & ADN -->
+        <section id="sobre-mi" class="py-16 md:py-20 scroll-mt-20">
+            <div class="reveal mb-10">
+                <p class="font-mono text-xs text-cyan-600 dark:text-cyan-400 mb-2">// 01. sobre_mi</p>
+                <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">Sobre mí &amp; mi ADN</h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div class="lg:col-span-7 reveal rounded-3xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/50 glass-card p-6 sm:p-8 space-y-4">
+                    <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+                        Soy desarrollador de software en <strong class="text-slate-900 dark:text-white">Medellín, Colombia</strong>. Me apasiona entender cómo funcionan las cosas por dentro y convertir ideas en herramientas que la gente realmente usa.
+                    </p>
+                    <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+                        Trabajo principalmente con <strong class="text-amber-600 dark:text-amber-300">JavaScript</strong> para interfaces interactivas, con <strong class="text-sky-600 dark:text-sky-300">Python</strong> para automatizar tareas y procesar datos, y aplico principios de <strong class="text-emerald-600 dark:text-emerald-400">ciberseguridad</strong> para que lo que construyo sea confiable.
+                    </p>
+                    <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+                        Aprendo todos los días, me gusta el código limpio y bien documentado, y disfruto trabajar en equipo resolviendo problemas reales.
+                    </p>
+                    <div class="flex flex-wrap gap-2 pt-2">
+                        <span class="px-3 py-1 rounded-full text-xs font-mono bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"><i class="fa-solid fa-location-dot mr-1 text-cyan-500"></i>Medellín, CO</span>
+                        <span class="px-3 py-1 rounded-full text-xs font-mono bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"><i class="fa-solid fa-language mr-1 text-emerald-500"></i>Español nativo</span>
+                        <span class="px-3 py-1 rounded-full text-xs font-mono bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"><i class="fa-solid fa-laptop-code mr-1 text-amber-500"></i>Remoto o presencial</span>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 grid grid-cols-2 gap-4">
+                    <div class="reveal rounded-2xl border border-cyan-500/30 bg-cyan-500/5 p-5">
+                        <i class="fa-solid fa-bolt text-cyan-500 text-xl"></i>
+                        <h3 class="font-bold mt-3 text-slate-900 dark:text-white">Rendimiento</h3>
+                        <p class="text-xs text-slate-600 dark:text-slate-400 mt-1">Páginas ligeras que cargan rápido, incluso en el celular.</p>
+                    </div>
+                    <div class="reveal rounded-2xl border border-emerald-500/30 bg-emerald-500/5 p-5">
+                        <i class="fa-solid fa-lock text-emerald-500 text-xl"></i>
+                        <h3 class="font-bold mt-3 text-slate-900 dark:text-white">Seguridad</h3>
+                        <p class="text-xs text-slate-600 dark:text-slate-400 mt-1">Validación, buenas prácticas y datos protegidos.</p>
+                    </div>
+                    <div class="reveal rounded-2xl border border-amber-500/30 bg-amber-500/5 p-5">
+                        <i class="fa-solid fa-puzzle-piece text-amber-500 text-xl"></i>
+                        <h3 class="font-bold mt-3 text-slate-900 dark:text-white">Resolución</h3>
+                        <p class="text-xs text-slate-600 dark:text-slate-400 mt-1">Divido problemas grandes en pasos simples.</p>
+                    </div>
+                    <div class="reveal rounded-2xl border border-sky-500/30 bg-sky-500/5 p-5">
+                        <i class="fa-solid fa-seedling text-sky-500 text-xl"></i>
+                        <h3 class="font-bold mt-3 text-slate-900 dark:text-white">Aprendizaje</h3>
+                        <p class="text-xs text-slate-600 dark:text-slate-400 mt-1">Siempre explorando nuevas herramientas.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. HABILIDADES -->
+        <section id="habilidades" class="py-16 md:py-20 scroll-mt-20">
+            <div class="reveal mb-10">
+                <p class="font-mono text-xs text-cyan-600 dark:text-cyan-400 mb-2">// 02. skills</p>
+                <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">Habilidades técnicas</h2>
+                <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">Toca una habilidad para ver el detalle.</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div id="skillsList" class="lg:col-span-7 reveal space-y-3"></div>
+                <div class="lg:col-span-5 reveal">
+                    <div id="skillInspector" class="lg:sticky lg:top-24 rounded-3xl border border-cyan-500/30 bg-slate-950/90 neon-border-cyan p-6 font-mono text-sm text-slate-200 min-h-[260px]"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. PROYECTOS -->
+        <section id="proyectos" class="py-16 md:py-20 scroll-mt-20">
+            <div class="reveal mb-10">
+                <p class="font-mono text-xs text-cyan-600 dark:text-cyan-400 mb-2">// 03. proyectos</p>
+                <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">Proyectos destacados</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <article class="reveal group rounded-3xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/50 glass-card p-6 flex flex-col hover:border-emerald-500/50 transition">
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-500/15 text-emerald-500 flex items-center justify-center text-xl"><i class="fa-solid fa-futbol"></i></div>
+                    <h3 class="mt-4 text-lg font-bold text-slate-900 dark:text-white">GoalMatch</h3>
+                    <p class="mt-2 text-sm text-slate-600 dark:text-slate-400 flex-1">Comunidad de fútbol amateur en Bogotá y Medellín: partidos, canchas, arqueros, marcador en vivo y votación MVP.</p>
+                    <div class="flex flex-wrap gap-1.5 mt-4"><span class="px-2 py-0.5 rounded-md text-[11px] font-mono bg-amber-500/15 text-amber-600 dark:text-amber-300">JavaScript</span><span class="px-2 py-0.5 rounded-md text-[11px] font-mono bg-orange-500/15 text-orange-600 dark:text-orange-300">HTML</span><span class="px-2 py-0.5 rounded-md text-[11px] font-mono bg-slate-500/15 text-slate-600 dark:text-slate-300">Responsive</span></div>
+                    <div class="flex flex-wrap gap-3 mt-5 text-sm font-semibold">
+                        <a data-live-repo="goalmatch" href="https://fo-kin12.github.io/goalmatch/" target="_blank" rel="noopener" class="text-cyan-600 dark:text-cyan-400 hover:underline"><i class="fa-solid fa-arrow-up-right-from-square mr-1"></i>Ver en vivo</a>
+                        <a href="https://github.com/fo-kin12/goalmatch" target="_blank" rel="noopener" class="text-slate-600 dark:text-slate-300 hover:underline"><i class="fa-brands fa-github mr-1"></i>Código</a>
+                    </div>
+                </article>
+                <article class="reveal group rounded-3xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/50 glass-card p-6 flex flex-col hover:border-cyan-500/50 transition">
+                    <div class="w-12 h-12 rounded-2xl bg-cyan-500/15 text-cyan-500 flex items-center justify-center text-xl"><i class="fa-solid fa-bicycle"></i></div>
+                    <h3 class="mt-4 text-lg font-bold text-slate-900 dark:text-white">Rueda Libre</h3>
+                    <p class="mt-2 text-sm text-slate-600 dark:text-slate-400 flex-1">Sitio de alquiler de bicicletas en Medellín con reservas, tarifas y la sección Rueda Nocturna para rodar de noche.</p>
+                    <div class="flex flex-wrap gap-1.5 mt-4"><span class="px-2 py-0.5 rounded-md text-[11px] font-mono bg-orange-500/15 text-orange-600 dark:text-orange-300">HTML</span><span class="px-2 py-0.5 rounded-md text-[11px] font-mono bg-violet-500/15 text-violet-600 dark:text-violet-300">Bootstrap</span><span class="px-2 py-0.5 rounded-md text-[11px] font-mono bg-cyan-500/15 text-cyan-600 dark:text-cyan-300">Tailwind</span></div>
+                    <div class="flex flex-wrap gap-3 mt-5 text-sm font-semibold">
+                        <a data-live-repo="pagina-update" href="https://fo-kin12.github.io/pagina-update/" target="_blank" rel="noopener" class="text-cyan-600 dark:text-cyan-400 hover:underline"><i class="fa-solid fa-arrow-up-right-from-square mr-1"></i>Ver en vivo</a>
+                        <a href="https://github.com/fo-kin12/pagina-update" target="_blank" rel="noopener" class="text-slate-600 dark:text-slate-300 hover:underline"><i class="fa-brands fa-github mr-1"></i>Código</a>
+                    </div>
+                </article>
+                <article class="reveal group rounded-3xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/50 glass-card p-6 flex flex-col hover:border-violet-500/50 transition">
+                    <div class="w-12 h-12 rounded-2xl bg-violet-500/15 text-violet-500 flex items-center justify-center text-xl"><i class="fa-solid fa-record-vinyl"></i></div>
+                    <h3 class="mt-4 text-lg font-bold text-slate-900 dark:text-white">BIT4</h3>
+                    <p class="mt-2 text-sm text-slate-600 dark:text-slate-400 flex-1">Tienda de vinilos y colección: catálogo de clásicos, preventas de ediciones limitadas y contacto directo.</p>
+                    <div class="flex flex-wrap gap-1.5 mt-4"><span class="px-2 py-0.5 rounded-md text-[11px] font-mono bg-orange-500/15 text-orange-600 dark:text-orange-300">HTML</span><span class="px-2 py-0.5 rounded-md text-[11px] font-mono bg-violet-500/15 text-violet-600 dark:text-violet-300">Bootstrap</span><span class="px-2 py-0.5 rounded-md text-[11px] font-mono bg-cyan-500/15 text-cyan-600 dark:text-cyan-300">CSS</span></div>
+                    <div class="flex flex-wrap gap-3 mt-5 text-sm font-semibold">
+                        <a data-live-repo="Bit4" href="https://fo-kin12.github.io/Bit4/" target="_blank" rel="noopener" class="hidden text-cyan-600 dark:text-cyan-400 hover:underline"><i class="fa-solid fa-arrow-up-right-from-square mr-1"></i>Ver en vivo</a>
+                        <a href="https://github.com/fo-kin12/Bit4" target="_blank" rel="noopener" class="text-slate-600 dark:text-slate-300 hover:underline"><i class="fa-brands fa-github mr-1"></i>Código</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- 4b. REPOSITORIOS DE GITHUB -->
+        <section id="repos" class="py-16 md:py-20 scroll-mt-20">
+            <div class="reveal mb-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+                <div>
+                    <p class="font-mono text-xs text-cyan-600 dark:text-cyan-400 mb-2">// 03b. github</p>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">Mis repositorios</h2>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">Todos mis repos públicos en <a data-cfg-href="github" data-cfg="githubTexto" href="https://github.com/fo-kin12" target="_blank" rel="noopener" class="text-cyan-600 dark:text-cyan-400 hover:underline">github.com/fo-kin12</a>.</p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span id="reposStatus" class="font-mono text-[11px] text-slate-500 dark:text-slate-400"><i class="fa-solid fa-circle-notch fa-spin mr-1"></i>Cargando…</span>
+                    <a data-cfg-href="github" href="https://github.com/fo-kin12" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-slate-900 text-white dark:bg-white dark:text-slate-900 hover:opacity-90 transition"><i class="fa-brands fa-github"></i> Ver perfil</a>
+                </div>
+            </div>
+            <div id="reposGrid" class="reveal grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+        </section>
+
+        <!-- 5. CANVAS LAB — Demo Multi-Window Sync -->
+        <section id="canvas-lab" class="py-16 md:py-20 scroll-mt-20">
+            <div class="reveal mb-8">
+                <p class="font-mono text-xs text-emerald-600 dark:text-emerald-400 mb-2">// 04. demo_sync</p>
+                <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">Demo: pizarra sincronizada</h2>
+                <p class="text-sm text-slate-500 dark:text-slate-400 mt-2 max-w-2xl">Dibuja en la pizarra de la izquierda: el espejo la copia en vivo. Si abres esta misma página en otra pestaña del mismo navegador, lo que dibujes aparece en ambas.</p>
+            </div>
+
+            <div class="reveal rounded-3xl border border-emerald-500/30 bg-white/70 dark:bg-slate-900/50 glass-card neon-border-emerald p-4 sm:p-6">
+                <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                    <div class="flex items-center gap-2" id="colorPicker">
+                        <button data-color="#22d3ee" class="w-8 h-8 rounded-full border-2 border-white dark:border-slate-200 ring-2 ring-cyan-400" style="background:#22d3ee" aria-label="Cian"></button>
+                        <button data-color="#34d399" class="w-8 h-8 rounded-full border-2 border-transparent" style="background:#34d399" aria-label="Verde"></button>
+                        <button data-color="#fbbf24" class="w-8 h-8 rounded-full border-2 border-transparent" style="background:#fbbf24" aria-label="Ámbar"></button>
+                        <button data-color="#f472b6" class="w-8 h-8 rounded-full border-2 border-transparent" style="background:#f472b6" aria-label="Rosa"></button>
+                        <button data-color="#e2e8f0" class="w-8 h-8 rounded-full border-2 border-transparent" style="background:#e2e8f0" aria-label="Blanco"></button>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <label class="font-mono text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2">Grosor
+                            <input id="brushSize" type="range" min="2" max="18" value="5" class="accent-emerald-500 w-24">
+                        </label>
+                        <button id="clearCanvasBtn" class="px-3 py-1.5 rounded-lg text-xs font-mono font-semibold border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-red-400 hover:text-red-400 transition">
+                            <i class="fa-solid fa-eraser mr-1"></i>Borrar
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="md:col-span-2">
+                        <div class="font-mono text-[11px] text-slate-500 dark:text-slate-400 mb-1.5">ventana_principal.canvas</div>
+                        <canvas id="mainCanvas" class="w-full h-64 sm:h-80 rounded-2xl bg-slate-950 border border-slate-800 cursor-crosshair"></canvas>
+                    </div>
+                    <div>
+                        <div class="font-mono text-[11px] text-slate-500 dark:text-slate-400 mb-1.5">espejo_sincronizado.canvas</div>
+                        <canvas id="mirrorCanvas" class="w-full h-40 sm:h-48 md:h-80 rounded-2xl bg-slate-950 border border-emerald-500/30"></canvas>
+                    </div>
+                </div>
+
+                <div class="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[11px] text-slate-500 dark:text-slate-400">
+                    <span><i class="fa-solid fa-tower-broadcast text-emerald-500 mr-1"></i>Canal: <span id="syncSupport">comprobando…</span></span>
+                    <span><i class="fa-solid fa-window-restore text-cyan-500 mr-1"></i>Otras pestañas conectadas: <span id="peerCount">0</span></span>
+                    <span><i class="fa-solid fa-arrow-right-arrow-left text-amber-500 mr-1"></i>Trazos sincronizados: <span id="strokeCount">0</span></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. CONTACTO -->
+        <section id="contacto" class="py-16 md:py-20 scroll-mt-20">
+            <div class="reveal mb-10">
+                <p class="font-mono text-xs text-cyan-600 dark:text-cyan-400 mb-2">// 05. contacto</p>
+                <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">Hablemos de tu proyecto</h2>
+                <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">Escríbeme por el medio que prefieras.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div class="lg:col-span-5 space-y-3 reveal">
+                    <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/50 p-4 flex items-center gap-4">
+                        <div class="w-11 h-11 shrink-0 rounded-xl bg-cyan-500/15 text-cyan-500 flex items-center justify-center"><i class="fa-solid fa-envelope"></i></div>
+                        <div class="min-w-0 flex-1">
+                            <div class="text-[11px] font-mono text-slate-500 dark:text-slate-400">Correo</div>
+                            <a data-cfg-href="email" data-cfg="email" href="mailto:tucorreo@ejemplo.com" class="block truncate font-semibold text-slate-900 dark:text-white hover:text-cyan-500">tucorreo@ejemplo.com</a>
+                        </div>
+                        <button onclick="copyConfig('email')" class="p-2 rounded-lg text-slate-500 hover:text-cyan-500 hover:bg-cyan-500/10" aria-label="Copiar correo"><i class="fa-regular fa-copy"></i></button>
+                    </div>
+                    <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/50 p-4 flex items-center gap-4">
+                        <div class="w-11 h-11 shrink-0 rounded-xl bg-emerald-500/15 text-emerald-500 flex items-center justify-center"><i class="fa-brands fa-whatsapp"></i></div>
+                        <div class="min-w-0 flex-1">
+                            <div class="text-[11px] font-mono text-slate-500 dark:text-slate-400">WhatsApp</div>
+                            <a data-cfg-href="whatsapp" data-cfg="whatsappTexto" href="https://wa.me/573000000000" target="_blank" rel="noopener" class="block truncate font-semibold text-slate-900 dark:text-white hover:text-emerald-500">+57 300 000 0000</a>
+                        </div>
+                        <button onclick="copyConfig('whatsappTexto')" class="p-2 rounded-lg text-slate-500 hover:text-emerald-500 hover:bg-emerald-500/10" aria-label="Copiar número"><i class="fa-regular fa-copy"></i></button>
+                    </div>
+                    <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/50 p-4 flex items-center gap-4">
+                        <div class="w-11 h-11 shrink-0 rounded-xl bg-slate-500/15 text-slate-700 dark:text-slate-200 flex items-center justify-center"><i class="fa-brands fa-github"></i></div>
+                        <div class="min-w-0 flex-1">
+                            <div class="text-[11px] font-mono text-slate-500 dark:text-slate-400">GitHub</div>
+                            <a data-cfg-href="github" data-cfg="githubTexto" href="https://github.com/" target="_blank" rel="noopener" class="block truncate font-semibold text-slate-900 dark:text-white hover:text-cyan-500">github.com/tu-usuario</a>
+                        </div>
+                    </div>
+                    <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/50 p-4 flex items-center gap-4">
+                        <div class="w-11 h-11 shrink-0 rounded-xl bg-sky-500/15 text-sky-500 flex items-center justify-center"><i class="fa-brands fa-linkedin-in"></i></div>
+                        <div class="min-w-0 flex-1">
+                            <div class="text-[11px] font-mono text-slate-500 dark:text-slate-400">LinkedIn</div>
+                            <a data-cfg-href="linkedin" data-cfg="linkedinTexto" href="https://www.linkedin.com/" target="_blank" rel="noopener" class="block truncate font-semibold text-slate-900 dark:text-white hover:text-sky-500">linkedin.com/in/tu-usuario</a>
+                        </div>
+                    </div>
+                </div>
+
+                <form id="contactForm" class="lg:col-span-7 reveal rounded-3xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/50 glass-card p-6 space-y-4" novalidate>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <label class="block">
+                            <span class="text-xs font-mono text-slate-500 dark:text-slate-400">Tu nombre</span>
+                            <input id="cfName" type="text" required maxlength="80" class="mt-1 w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 px-3.5 py-2.5 text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-cyan-500" placeholder="Ej: Laura Gómez">
+                        </label>
+                        <label class="block">
+                            <span class="text-xs font-mono text-slate-500 dark:text-slate-400">Enviar por</span>
+                            <select id="cfChannel" class="mt-1 w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 px-3.5 py-2.5 text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-cyan-500">
+                                <option value="whatsapp">WhatsApp</option>
+                                <option value="email">Correo</option>
+                            </select>
+                        </label>
+                    </div>
+                    <label class="block">
+                        <span class="text-xs font-mono text-slate-500 dark:text-slate-400">Mensaje</span>
+                        <textarea id="cfMessage" required rows="4" maxlength="1000" class="mt-1 w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 px-3.5 py-2.5 text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-cyan-500" placeholder="Cuéntame sobre tu idea o proyecto…"></textarea>
+                    </label>
+                    <p id="cfError" class="hidden text-xs text-red-500 font-mono"></p>
+                    <button type="submit" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-semibold text-sm bg-gradient-to-r from-cyan-500 to-emerald-500 text-slate-950 shadow-lg shadow-cyan-500/25 hover:opacity-95 active:scale-95 transition">
+                        <i class="fa-regular fa-paper-plane"></i> Preparar mensaje
+                    </button>
+
+                    <div id="cfResult" class="hidden rounded-2xl border border-emerald-500/40 bg-emerald-500/10 p-4 space-y-3">
+                        <p class="text-sm text-slate-700 dark:text-slate-200">Tu mensaje está listo. Ábrelo en la app para enviarlo, o cópialo:</p>
+                        <pre id="cfPreview" class="whitespace-pre-wrap text-xs font-mono bg-slate-950 text-slate-200 rounded-xl p-3 max-h-40 overflow-auto"></pre>
+                        <div class="flex flex-wrap gap-2">
+                            <a id="cfOpenLink" href="#" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-emerald-500 text-slate-950 hover:opacity-90"><i class="fa-solid fa-arrow-up-right-from-square"></i> <span id="cfOpenLabel">Abrir WhatsApp</span></a>
+                            <button type="button" id="cfCopyBtn" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:border-cyan-500"><i class="fa-regular fa-copy"></i> Copiar mensaje</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer data-ml class="relative z-10 border-t border-slate-200 dark:border-slate-800 mt-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-500 dark:text-slate-400">
+            <span>© <span id="yearNow">2026</span> <span data-cfg="nombre">Michael López</span> · Medellín, Colombia</span>
+            <div class="flex items-center gap-4 text-base">
+                <a data-cfg-href="github" href="https://github.com/" target="_blank" rel="noopener" class="hover:text-cyan-500" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                <a data-cfg-href="linkedin" href="https://www.linkedin.com/" target="_blank" rel="noopener" class="hover:text-sky-500" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a data-cfg-href="whatsapp" href="https://wa.me/573000000000" target="_blank" rel="noopener" class="hover:text-emerald-500" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#inicio" class="hover:text-cyan-500" aria-label="Volver arriba"><i class="fa-solid fa-arrow-up"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Dock inferior para celular -->
+    <nav data-ml class="md:hidden fixed bottom-0 inset-x-0 z-50 glass-card bg-white/90 dark:bg-[#070c18]/90 border-t border-slate-200 dark:border-slate-800 ios-dock-padding">
+        <div class="grid grid-cols-5 text-[10px] font-medium text-slate-600 dark:text-slate-300">
+            <a href="#inicio" class="flex flex-col items-center gap-1 py-2.5 hover:text-cyan-500"><i class="fa-solid fa-house text-base"></i>Inicio</a>
+            <a href="#habilidades" class="flex flex-col items-center gap-1 py-2.5 hover:text-cyan-500"><i class="fa-solid fa-layer-group text-base"></i>Skills</a>
+            <a href="#proyectos" class="flex flex-col items-center gap-1 py-2.5 hover:text-cyan-500"><i class="fa-solid fa-code text-base"></i>Proyectos</a>
+            <a href="#contacto" class="flex flex-col items-center gap-1 py-2.5 hover:text-cyan-500"><i class="fa-solid fa-paper-plane text-base"></i>Contacto</a>
+            <button onclick="openDownloadModal()" class="flex flex-col items-center gap-1 py-2.5 text-emerald-600 dark:text-emerald-400"><i class="fa-solid fa-share-nodes text-base"></i>Compartir</button>
+        </div>
+    </nav>
+
+    <!-- Modal Compartir / Descargar -->
+    <div data-ml id="downloadModal" class="hidden fixed inset-0 z-[70] flex items-end sm:items-center justify-center p-0 sm:p-4" role="dialog" aria-modal="true" aria-labelledby="dmTitle">
+        <div class="absolute inset-0 bg-slate-950/70 backdrop-blur-sm" onclick="closeDownloadModal()"></div>
+        <div class="relative w-full sm:max-w-lg max-h-[90vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-6 shadow-2xl ios-dock-padding">
+            <div class="flex items-center justify-between mb-4">
+                <h3 id="dmTitle" class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2"><i class="fa-solid fa-share-nodes text-emerald-500"></i> Compartir o descargar</h3>
+                <button onclick="closeDownloadModal()" class="p-2 rounded-lg text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800" aria-label="Cerrar"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="space-y-3">
+                <button onclick="window.sharePortfolioNative()" class="w-full flex items-center gap-3 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-cyan-500/60 text-left transition">
+                    <span class="w-10 h-10 shrink-0 rounded-xl bg-cyan-500/15 text-cyan-500 flex items-center justify-center"><i class="fa-solid fa-share-nodes"></i></span>
+                    <span><span class="block font-semibold text-sm text-slate-900 dark:text-white">Compartir</span><span class="block text-xs text-slate-500 dark:text-slate-400">WhatsApp, correo, AirDrop o copiar el enlace.</span></span>
+                </button>
+                <button onclick="window.downloadPortfolioHTML()" class="w-full flex items-center gap-3 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-emerald-500/60 text-left transition">
+                    <span class="w-10 h-10 shrink-0 rounded-xl bg-emerald-500/15 text-emerald-500 flex items-center justify-center"><i class="fa-solid fa-file-arrow-down"></i></span>
+                    <span><span class="block font-semibold text-sm text-slate-900 dark:text-white">Descargar archivo (.HTML)</span><span class="block text-xs text-slate-500 dark:text-slate-400">Un solo archivo que se abre en cualquier navegador.</span></span>
+                </button>
+                <button onclick="window.downloadVCardContact()" class="w-full flex items-center gap-3 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-amber-500/60 text-left transition">
+                    <span class="w-10 h-10 shrink-0 rounded-xl bg-amber-500/15 text-amber-500 flex items-center justify-center"><i class="fa-solid fa-address-card"></i></span>
+                    <span><span class="block font-semibold text-sm text-slate-900 dark:text-white">Guardar contacto (.VCF)</span><span class="block text-xs text-slate-500 dark:text-slate-400">Agrega a Michael a los contactos del iPhone o Android.</span></span>
+                </button>
+                <button onclick="window.installAndroidApp()" class="w-full flex items-center gap-3 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-lime-500/60 text-left transition">
+                    <span class="w-10 h-10 shrink-0 rounded-xl bg-lime-500/15 text-lime-500 flex items-center justify-center"><i class="fa-brands fa-android"></i></span>
+                    <span><span class="block font-semibold text-sm text-slate-900 dark:text-white">Instalar en Android</span><span class="block text-xs text-slate-500 dark:text-slate-400">Queda como una app en tu pantalla de inicio y abre sin internet.</span></span>
+                </button>
+            </div>
+            <div class="mt-5 rounded-2xl bg-slate-100 dark:bg-slate-900 p-4 text-xs text-slate-600 dark:text-slate-300 space-y-2">
+                <p class="font-semibold text-slate-800 dark:text-slate-100"><i class="fa-brands fa-android mr-1"></i>En Android</p>
+                <p>Abre la página en <b>Chrome</b> y toca <b>Instalar en Android</b>. Si no aparece el aviso, abre el menú <b>⋮</b> y elige <b>Instalar aplicación</b> o <b>Agregar a la pantalla principal</b>.</p>
+                <p class="font-semibold text-slate-800 dark:text-slate-100 pt-1"><i class="fa-brands fa-apple mr-1"></i>En iPhone</p>
+                <p>Descarga el .HTML, ábrelo desde la app <b>Archivos</b> y compártelo por WhatsApp o correo. Si la página está en internet, en Safari toca <b>Compartir → Añadir a pantalla de inicio</b> para tenerla como app.</p>
+                <p class="font-semibold text-slate-800 dark:text-slate-100 pt-1"><i class="fa-solid fa-desktop mr-1"></i>En PC</p>
+                <p>Descarga el .HTML y ábrelo con doble clic. El diseño viene incluido en el archivo; solo las fuentes y los íconos se cargan de internet.</p>
+            </div>
+        </div>
+    </div>
+
+    <script data-ml data-inline="script" src="js/main.js"></script>
+</body>
+</html>
