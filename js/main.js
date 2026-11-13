@@ -19,6 +19,7 @@
         github: 'https://github.com/fo-kin12',
         githubTexto: 'github.com/fo-kin12',
         githubUser: 'fo-kin12',             // tu usuario de GitHub: de aquí salen los repos
+        reposOcultos: ['trabajofinal'],     // repos que NO quieres mostrar en la página
         sitio: 'https://fo-kin12.github.io/pagina-personal/', // link donde está publicada esta página
         linkedin: 'https://www.linkedin.com/in/tu-usuario',
         linkedinTexto: 'linkedin.com/in/tu-usuario',
@@ -565,7 +566,7 @@
     async function setupRepos() {
         renderRepos(REPOS_GUARDADOS, 'guardado');
         try {
-            const c = JSON.parse(localStorage.getItem('ml-repos') || 'null');
+            const c = JSON.parse(localStorage.getItem('ml-repos-v2') || 'null');
             if (c && c.u === CONFIG.githubUser && Date.now() - c.t < 3600000 && c.list && c.list.length) { renderRepos(c.list, 'api'); return; }
         } catch (e) {}
         try {
@@ -575,13 +576,15 @@
                 { headers: { Accept: 'application/vnd.github+json' }, signal: ctrl ? ctrl.signal : undefined });
             if (!res.ok) throw new Error('GitHub ' + res.status);
             const data = await res.json();
-            const list = data.filter(r => !r.fork && !r.private && r.size > 0).map(r => {
+                // Se muestran todos los repos públicos, menos los de CONFIG.reposOcultos.
+                const ocultos = (CONFIG.reposOcultos || []).map(n => n.toLowerCase());
+                const list = data.filter(r => !r.fork && !r.private && !ocultos.includes(r.name.toLowerCase())).map(r => {
                 const g = REPOS_GUARDADOS.find(x => x.name.toLowerCase() === r.name.toLowerCase()) || {};
                 return { name: r.name, description: r.description || g.description || '', language: r.language || g.language || '',
                          has_pages: !!r.has_pages, homepage: r.homepage, pushed_at: r.pushed_at, stargazers_count: r.stargazers_count };
             });
             if (!list.length) throw new Error('sin repos');
-            try { localStorage.setItem('ml-repos', JSON.stringify({ t: Date.now(), u: CONFIG.githubUser, list })); } catch (e) {}
+            try { localStorage.setItem('ml-repos-v2', JSON.stringify({ t: Date.now(), u: CONFIG.githubUser, list })); } catch (e) {}
             renderRepos(list, 'api');
         } catch (e) { /* sin conexión con GitHub: se queda la lista guardada */ }
     }
