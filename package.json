@@ -1,0 +1,17 @@
+{
+  "name": "pagina-personal",
+  "version": "1.0.0",
+  "description": "Portafolio personal de Michael López: desarrollador de software en Medellín.",
+  "author": "fo-kin12",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "tailwindcss -i ./src/input.css -o ./css/tailwind.css --minify",
+    "dev": "tailwindcss -i ./src/input.css -o ./css/tailwind.css --watch",
+    "start": "npx serve ."
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.0",
+    "tailwindcss": "^4.1.0"
+  }
+}
