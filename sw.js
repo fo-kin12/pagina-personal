@@ -1,10 +1,11 @@
 // Service worker: guarda la página para que la app abra sin internet.
 // Autor: fo-kin12
-const CACHE = 'pagina-personal-v2';
+const CACHE = 'pagina-personal-v3';
 const CORE = ['./', './index.html', './css/tailwind.css', './css/styles.css', './js/main.js', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './icons/icon-maskable-512.png', './icons/apple-touch-icon.png'];
 
 self.addEventListener('install', (e) => {
-  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(CORE)).then(() => self.skipWaiting()));
+  // cache: 'reload' para no guardar copias viejas del caché del navegador
+  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(CORE.map((u) => new Request(u, { cache: 'reload' })))).then(() => self.skipWaiting()));
 });
 
 self.addEventListener('activate', (e) => {
@@ -26,7 +27,7 @@ self.addEventListener('fetch', (e) => {
   // Páginas: primero la red (para ver cambios nuevos) y si no hay internet, la copia guardada.
   if (req.mode === 'navigate') {
     e.respondWith(
-      fetch(req)
+      fetch(req, { cache: 'no-cache' })
         .then((res) => { const copy = res.clone(); caches.open(CACHE).then((c) => c.put('./index.html', copy)); return res; })
         .catch(() => caches.match('./index.html'))
     );
@@ -36,7 +37,7 @@ self.addEventListener('fetch', (e) => {
   // Archivos de la página (CSS, JS, íconos): primero la red para ver siempre lo último; sin internet, la copia guardada.
   if (url.origin === self.location.origin) {
     e.respondWith(
-      fetch(req)
+      fetch(req, { cache: 'no-cache' })
         .then((res) => { if (res.ok) { const copy = res.clone(); caches.open(CACHE).then((c) => c.put(req, copy)); } return res; })
         .catch(() => caches.match(req))
     );
